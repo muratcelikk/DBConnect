@@ -71,4 +71,22 @@ public class HomeController {
         }
         return "redirect:/";
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete() {
+        try {
+            String query = "DELETE FROM `users` WHERE `users`.`uid` = ?";
+            PreparedStatement pre = db.connect(query);
+            pre.setInt(1, 29); //29 nolu ID varsa siler
+            int statu = pre.executeUpdate();
+            if (statu > 0) {
+                System.out.println("Silme işlemi başarılı");
+            }else{
+                System.out.println("Silme hatası");
+            }
+        } catch (Exception e) {
+            System.err.println("Delete error: " + e);
+        }
+        return "redirect:/";
+    }
 }
