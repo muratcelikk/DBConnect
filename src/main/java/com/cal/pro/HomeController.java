@@ -55,4 +55,20 @@ public class HomeController {
         return ls;
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String insert() {
+
+        try {
+            String query = "INSERT INTO `users`(`uid`, `uname`, `usurname`, `umail`, `upassword`) VALUES (NULL,?,?,?,?)";
+            PreparedStatement pre = db.connect(query);
+            pre.setString(1, "Murat");
+            pre.setString(2, "Celik");
+            pre.setString(3, "muratcelik11@gmail.com");
+            pre.setString(4, "7777");
+            pre.executeUpdate();
+        } catch (Exception e) {
+            System.err.println("insert error : " + e);
+        }
+        return "redirect:/";
+    }
 }
